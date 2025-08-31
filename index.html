@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para el amor de mi vida</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #FCBBF0;
+      font-family: "Segoe UI", sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gerbera-bouquet {
+      width: 350px;
+      height: auto;
+      margin-bottom: 30px;
+      animation: appear 2s ease-out;
+      z-index: 1;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .leaf {
+      position: absolute;
+      top: -20px;
+      font-size: 20px;
+      color: #ff6699;
+      animation: fall linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    .poem {
+      max-width: 700px;
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.7;
+      color: #333;
+      font-style: italic; /* cursiva */
+      white-space: pre-wrap;
+      z-index: 1;
+    }
+
+    .contador {
+      margin-top: 25px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #cc0066;
+      z-index: 1;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="file:///C:/Users/carlo/Downloads/138444130-illustration-of-a-bouquet-of-tulips-roses-and-gerbera-daisys-pink-removebg-preview.png" alt="Ramo de flores" class="gerbera-bouquet">
+
+  <div class="poem" id="poem"></div>
+  <div class="contador" id="contador"></div>
+
+  <script>
+    const poemDiv = document.getElementById("poem");
+
+    const poema = `Para el amor de mi vida:
+
+Quiero dedicarte estas palabritas, no solo porque me nace, sino porque siento que mi corazón necesita hablar contigo. Desde que entraste a mi vida, todo ha cambiado de una manera tan hermosa que a veces me cuesta creer que es real. Eres esa chica tan linda e inteligente que la vida me permitió conocer sin que lo pidiera, pero que ahora no podría imaginar perder. Eres mi razón, mi sonrisa, mi inspiración, eres mi todo amor.
+
+Me siento tan afortunado de tenerte, de poder llamarte mi noviecita, mi cariño, de poder caminar contigo en este camino que recién empezamos a recorrer juntos. Desde el primer día que nos acercamos, desde aquellas miradas y esas pláticas, supe que había algo especial en ti. Y no me equivoqué: hoy sé que eres la persona que siempre soñé, la que ilumina mis días y que hace mi vida tan feliz.
+
+Quiero agradecerte por cada detalle, por cada sonrisa que me regalas, por cada momento en que me escuchas y me haces sentir comprendido. Contigo no tengo que fingir nada, contigo puedo ser yo mismo, y eso es un regalo enorme. Me miras con esos ojos llenos de ternura y me haces sentir que soy alguien valioso, alguien digno de ser amado, y eso es algo que jamás voy a dejar de agradecerte.`;
+
+    let i = 0;
+    function escribirPoema() {
+      if (i < poema.length) {
+        poemDiv.innerText = poema.substring(0, i + 1);
+        i++;
+        setTimeout(escribirPoema, 50);
+      }
+    }
+
+    const fechaInicio = new Date("2025-08-16T00:00:00Z");
+
+    function actualizarContador() {
+      const ahora = new Date();
+      const diff = ahora.getTime() - fechaInicio.getTime();
+
+      if (diff < 0) {
+        document.getElementById("contador").innerText = `El amor comenzará el 16 de agosto de 2025... ❤️`;
+        return;
+      }
+
+      const totalSegundos = Math.floor(diff / 1000);
+      const totalMinutos = Math.floor(totalSegundos / 60);
+      const totalHoras = Math.floor(totalMinutos / 60);
+      const totalDias = Math.floor(totalHoras / 24);
+
+      const segundos = totalSegundos % 60;
+      const minutos = totalMinutos % 60;
+      const horas = totalHoras % 24;
+      const dias = totalDias;
+
+      const formatoTiempo = (t) => t < 10 ? `0${t}` : `${t}`;
+
+      document.getElementById("contador").innerText =
+        `Mi amor por ti comenzó hace...
+${dias} días ${formatoTiempo(horas)} horas ${formatoTiempo(minutos)} minutos ${formatoTiempo(segundos)} segundos`;
+    }
+
+    function crearHoja() {
+      const hoja = document.createElement("div");
+      hoja.classList.add("leaf");
+      hoja.innerText = "❤";
+      hoja.style.left = Math.random() * window.innerWidth + "px";
+      hoja.style.animationDuration = (3 + Math.random() * 5) + "s";
+      document.body.appendChild(hoja);
+
+      setTimeout(() => { hoja.remove(); }, 8000);
+    }
+
+    escribirPoema();
+    setInterval(crearHoja, 500);
+    actualizarContador();
+    setInterval(actualizarContador, 1000);
+  </script>
+</body>
+</html>
